@@ -10,6 +10,16 @@ Implementation of a master-slave parallel program (shared and distributed) to id
 
       ./install_dependencies.sh
 
+# Optional Requirements
+
+- [Python3](https://python.org) and [pip](https://pip.pypa.io/en/stable/installation/) package manager:
+
+      sudo apt install python3 python3-pip build-essential python3-dev
+
+- [PyCryptodome](https://pycryptodome.readthedocs.io/en/latest/src/introduction.html) library:
+ 
+      pip install pycryptodomex
+
 # Compilation
 
 Execute the following command to compile the source code:
@@ -37,3 +47,13 @@ Run the following command for executing the program in an unique multicore machi
 Run the following command for executing the program in multiple machines:
 
     make distributed_run
+
+# Optional Running
+
+## Instance Generator
+
+Inside _instances_ directory, you can generate your own instances by executing the command using the following template: `python3 instance_generator.py --length <number> --quantity <number>`
+
+- Example: Generating an instance file with 10000 numbers, 30 bits long:
+
+      python3 instance_generator -l 30 -n 10000
