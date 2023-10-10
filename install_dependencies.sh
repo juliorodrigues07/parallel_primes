@@ -9,3 +9,7 @@ cd openmpi-4.1.5
 ./configure --prefix /home/$(whoami)/openmpi
 make
 make install
+
+# OPTIONAL - Only for instance generation
+sudo apt install python3 python3-pip build-essential python3-dev
+pip install pycryptodomex
