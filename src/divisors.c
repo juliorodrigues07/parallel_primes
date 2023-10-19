@@ -12,10 +12,17 @@ int count_divisors (int value) {
         int square = sqrt(value);
         int limit = value / 2;
 
+        int step, i;
         // Odd numbers aren't divisible by even numbers
-        int step = (value % 2 == 0) ? EVEN : ODD;
+        if (value % 2 == 0) {
+            step = EVEN;
+            i = 2;
+        } else {
+            step = ODD;
+            i = 3;
+        }
 
-        for (int i = 2; i <= limit; i += step) {
+        while (i <= limit) {
 
             // If checked as far as square root of N, and N doesn't have a divisor greater than 1, then it must be prime
             if (i > square && divisors == 2)
@@ -24,6 +31,7 @@ int count_divisors (int value) {
                 if (value % i == 0)
                     divisors++;
             }
+            i += step;
         }
         return divisors;
     }
