@@ -10,6 +10,8 @@ cd openmpi-4.1.5
 make
 make install
 
-# OPTIONAL - Only for instance generation
+# OPTIONAL - Only for instance and time graphics generation
 sudo apt install python3 python3-pip build-essential python3-dev
 pip install pycryptodomex
+pip install matplotlib
+pip install seaborn
