@@ -1,11 +1,13 @@
+USER = $(shell whoami)
+
 all: data_management.o divisors.o
-	/home/$(whoami)/openmpi/bin/mpicc data_management.o divisors.o parallel.c -lm -o primes
+	/home/$(USER)/openmpi/bin/mpicc data_management.o divisors.o parallel.c -lm -o primes
 
 data_management.o: data_management.h
-	/home/$(whoami)/openmpi/bin/mpicc -c data_management.c
+	"/home/$(USER)/openmpi/bin/mpicc" -c data_management.c
 
 divisors.o: divisors.h
-	/home/$(whoami)/openmpi/bin/mpicc -c divisors.c
+	/home/$(USER)/openmpi/bin/mpicc -c divisors.c
 
 clean:
 	rm -rf *.o *.output
@@ -21,7 +23,7 @@ with_prof:
 	gprof sequential > prime.output
 
 shared_run:
-	/home/$(whoami)/openmpi/bin/mpirun -np 4 ./primes ../instances/prime_1.txt
+	/home/$(USER)/openmpi/bin/mpirun -np 4 ./primes ../instances/prime_1.txt
 
 distributed_run:
-	/home/$(whoami)/openmpi/bin/mpirun -np 4 --hostfile ../hosts.txt ./primes ../instances/prime_1.txt
+	/home/$(USER)/openmpi/bin/mpirun -np 4 --hostfile ../hosts.txt ./primes ../instances/prime_1.txt
