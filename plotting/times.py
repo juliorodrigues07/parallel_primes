@@ -38,7 +38,7 @@ def plot_by_instance(buffer, primes, instance_name):
 def plot_sequential(measures):
 
     fig, ax = plt.subplots(figsize=(12, 8))
-    barplot(x=['prime.txt', 'composite.txt', 'mixed.txt'], y=measures, palette='Blues')
+    barplot(x=['prime.txt', 'mixed.txt', 'composite.txt'], y=measures, palette='Blues')
 
     ax.set_title('Tempo de Processamento entre Instâncias', fontsize=18)
     ax.set_ylabel("Tempo de Execução (segundos)", fontsize=14)
@@ -55,18 +55,18 @@ def main():
 
     buffer = [1, 2, 3, 4]
 
-    primes = [0.044, 0.035, 0.02, 0.025]
+    primes = [0.045, 0.035, 0.02, 0.025]
     plot_by_instance(buffer, primes, 'prime.txt')
 
-    composites = [430, 243, 187, 154]
+    composites = [719, 477, 362, 297]
     plot_by_instance(buffer, composites, 'composite.txt')
 
-    mixed = [242, 129, 103, 82]
+    mixed = [369, 247, 185, 140]
     plot_by_instance(buffer, mixed, 'mixed.txt')
 
     plot_time(buffer, primes, mixed, composites)
 
-    sequential = [0.044, 242, 430]
+    sequential = [0.045, 369, 719]
     plot_sequential(sequential)
 
 
