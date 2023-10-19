@@ -4,7 +4,7 @@ Implementation of a master-slave parallel program (shared and distributed) to id
 
 # Requirements
 
-- [GCC](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler and [Open MPI](https://www.open-mpi.org/doc/) library;
+- [GCC](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler, [Open MPI](https://www.open-mpi.org/doc/) library and [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html) tool;
 
 - To install all dependencies:
 
@@ -19,6 +19,14 @@ Implementation of a master-slave parallel program (shared and distributed) to id
 - [PyCryptodome](https://pycryptodome.readthedocs.io/en/latest/src/introduction.html) library:
  
       pip install pycryptodomex
+
+- [Matplotlib](https://matplotlib.org/) library:
+ 
+      pip install matplotlib
+       
+- [seaborn](https://seaborn.pydata.org/) library:
+ 
+      pip install seaborn
 
 # Compilation
 
@@ -35,6 +43,18 @@ You can alter the parameters, such as the instance file and number of processes 
     ssh <IP_address>
 
 Also, you may need to change parameters in the hostfile (_hosts.txt_), such as IP addresses and number of slots (CPU cores).
+
+## Sequential
+
+To execute the sequential version with or without profiling, run the following respective commands:
+
+- Without profiling:
+
+      make sequential
+
+- With profiling (**gprof**):
+
+      make with_prof
 
 ## Shared
 
@@ -56,4 +76,10 @@ Inside _instances_ directory, you can generate your own instances by executing t
 
 - Example: Generating an instance file with 10000 numbers, 30 bits long:
 
-      python3 instance_generator -l 30 -n 10000
+      python3 instance_generator.py -l 30 -n 10000
+
+## Time graphics
+
+Inside _plotting_ directory, you can generate the time graphics present in this works report by running the following commmand:
+
+    python3 times.py
