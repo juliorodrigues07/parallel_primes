@@ -86,12 +86,13 @@ Além disso, é realizada uma análise detalhada quanto a como cada tipo de entr
 
 \section{Desenvolvimento}
 
-Toda a concepção do cálculo do número de divisores, assim como as funções responsáveis pela paralelização e manipulação de E/S foram implementadas na linguagem C (excetuando a análise gráfica de resultados e geração dos instâncias de teste, estes que foram gerados utilizando a linguagem Python\footnotemark \hspace{0.1cm}com auxílio das bibliotecas Matplotlib\footnotemark \hspace{0.1cm}e seaborn\footnotemark). A implementação foi desenvolvida com o auxílio da ferramenta de controle de versionamento GitHub\footnotemark, e encontra-se disponível publicamente no repositório \url{https://github.com/juliorodrigues07/parallel_primes}.
+Toda a concepção do cálculo do número de divisores, assim como as funções responsáveis pela paralelização e manipulação de E/S foram implementadas na linguagem C (excetuando a análise gráfica de resultados e geração dos instâncias de teste, estes que foram gerados utilizando a linguagem Python\footnotemark \hspace{0.1cm}com auxílio das bibliotecas PyCryptodome\footnotemark, Matplotlib\footnotemark \hspace{0.1cm}e seaborn\footnotemark). A implementação foi desenvolvida com o auxílio da ferramenta de controle de versionamento GitHub\footnotemark, e encontra-se disponível publicamente no repositório \url{https://github.com/juliorodrigues07/parallel_primes}.
 
 \footnotetext[2]{\scriptsize{Mais informações disponíveis em: \url{https://www.python.org/}}}
-\footnotetext[3]{\scriptsize{Mais informações disponíveis em: \url{https://matplotlib.org/}}}
-\footnotetext[4]{\scriptsize{Mais informações disponíveis em: \url{https://seaborn.pydata.org/}}}
-\footnotetext[5]{\scriptsize{Mais informações disponíveis em: \url{https://github.com}}}
+\footnotetext[3]{\scriptsize{Mais informações disponíveis em: \url{https://pycryptodome.readthedocs.io/en/latest/}}}
+\footnotetext[4]{\scriptsize{Mais informações disponíveis em: \url{https://matplotlib.org/}}}
+\footnotetext[5]{\scriptsize{Mais informações disponíveis em: \url{https://seaborn.pydata.org/}}}
+\footnotetext[6]{\scriptsize{Mais informações disponíveis em: \url{https://github.com}}}
 
 A organização do código se apresenta de forma bastante simples. Existem um par de arquivos de código fonte (juntamente com seus \emph{headers .h} associados) que são responsáveis por realizar as manipulações de entrada e saída (\emph{data\_management}) e calcular o número de divisores de cada valor da entrada (\emph{divisors}). No código fonte principal (\emph{main.c}) encontra-se a utilização da biblioteca OpenMPI para introdução do paralelismo ao programa. Além disso, também existe um segundo arquivo (\emph{sequential.c}) para execução sequencial para fins de comparação de resultados.
 
@@ -119,7 +120,7 @@ Analisando a execução da solução para o problema sem quaisquer tipos de para
 
 Com auxílio da ferramenta de perfilamento \textbf{gprof}\footnotemark, é observado que em média todo o tempo de processamento é oriundo apenas da execução da função de cálculo do número de divisores de cada valor. Da forma como a implementação foi realizada, tal cálculo independente de quaisquer outros valores presentes no arquivo de entrada, ou seja, seria perfeitamente possível na teoria paralelizar por completo o processamento (problema embaraçosamente paralelo), com um núcleo ficando responsável pelo cálculo de cada valor.
 
-\footnotetext[6]{\scriptsize{Mais informações disponíveis em: \url{https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html}}}
+\footnotetext[7]{\scriptsize{Mais informações disponíveis em: \url{https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html}}}
 
 No entanto, sabemos que tal abordagem é inviável na prática com entradas cujo tamanho ultrapassa as centenas ou milhares de valores. Logo, foi decidido por paralelizar tal execução conforme o poder computacional à disposição. Todos os testes foram realizados em um computador com processador Intel© Core™ i5-8265U CPU que possui 4 núcleos e frequência base 1,60 GHz.
 
@@ -243,13 +244,13 @@ Como principal limitação, é possível citar o descumprimento parcial do model
     \label{fig:map6}
 \end{figure}
 
-\footnotetext[7]{\scriptsize{Disponível em: \url{https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/mpi.2pp.pdf}}}
+\footnotetext[8]{\scriptsize{Disponível em: \url{https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/mpi.2pp.pdf}}}
 
 Para contornar tal obstáculo, é possível criar um comunicador restrito aos processos escravos, para que então possa ser realizada a operação de \emph{Scatter} com o primeiro processo escravo como raiz (\(rank = 1\)), distribuindo os dados somente entre os processos escravos. Posteriormente o agrupamento dos dados seria realizado no comunicador global, para que então o processo mestre possa armazenar o resultado em um arquivo de saída.
 
 Outro obstáculo encontrado no desenvolvimento deste trabalho foi a execução em ambientes distribuídos. Surgiram diversas adversidades quanto às tentativas de conexões via SSH\footnotemark \hspace{0.1cm}com as máquinas presentes nos laboratório do DComp. Por isto, não foi possível coletar resultados sobre o tempo de execução de processos em máquinas distintas, o possível atraso que a comunicação por rede poderia acarretar na execução do programa, a utilização dos recursos computacionais como memória principal, e o eventual \emph{speed up} que tal forma de execução poderia oferecer. 
 
-\footnotetext[8]{\scriptsize{Mais informações disponíveis em: \url{https://www.openssh.com/manual.html}}}
+\footnotetext[9]{\scriptsize{Mais informações disponíveis em: \url{https://www.openssh.com/manual.html}}}
 
 \section{Conclusão}
 
