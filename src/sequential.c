@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
         results[i] = count_divisors(values[i]);
     clock_t end = clock();
 
+    write_file(results, input_size);
     printf("Processing time: %0.3lfs\n", (double) (end - begin) / CLOCKS_PER_SEC);
 
     free(results);
