@@ -4,13 +4,13 @@ all: data_management.o divisors.o
 	/home/$(USER)/openmpi/bin/mpicc data_management.o divisors.o parallel.c -lm -o primes
 
 data_management.o: data_management.h
-	"/home/$(USER)/openmpi/bin/mpicc" -c data_management.c
+	/home/$(USER)/openmpi/bin/mpicc -c data_management.c
 
 divisors.o: divisors.h
 	/home/$(USER)/openmpi/bin/mpicc -c divisors.c
 
 clean:
-	rm -rf *.o *.output
+	rm -rf *.o *.output *.out
 	rm -rf primes sequential saida.txt gmon.out
 
 sequential:
