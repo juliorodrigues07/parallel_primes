@@ -1,4 +1,4 @@
-#include "divisors.h"
+#include "include/divisors.h"
 
 #define EVEN 1
 #define ODD 2

@@ -1,6 +1,6 @@
 #include <time.h>
-#include "data_management.h"
-#include "divisors.h"
+#include "include/data_management.h"
+#include "include/divisors.h"
 
 int main(int argc, char **argv) {
 

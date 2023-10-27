@@ -1,6 +1,6 @@
 #include <mpi.h>
-#include "data_management.h"
-#include "divisors.h"
+#include "include/data_management.h"
+#include "include/divisors.h"
 
 #define MASTER 0
 

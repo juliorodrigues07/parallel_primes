@@ -1,4 +1,4 @@
-#include "data_management.h"
+#include "include/data_management.h"
 
 void read_file (char *file_name, int *values, int input_size) {
 
