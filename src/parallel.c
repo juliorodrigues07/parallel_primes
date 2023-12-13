@@ -4,13 +4,14 @@
 
 #define MASTER 0
 
-void help (char**argv) {
+void help (char **argv)
+{
     fprintf(stderr, "Incorrect number of arguments.\n");
     fprintf(stderr, "Usage: %s <path/to/file>\n", argv[0]);
 }
 
-int main(int argc, char** argv) {
-
+int main (int argc, char** argv)
+{
     MPI_Init(&argc, &argv);
 
     int rank;
@@ -31,8 +32,8 @@ int main(int argc, char** argv) {
     int *sendcounts = NULL;
     int *displs = NULL;
 
-    if (rank == MASTER) {
-
+    if (rank == MASTER)
+    {
         // Input data reading
         char *file_name = argv[1];
         input_size = get_input_size(file_name);
@@ -44,7 +45,8 @@ int main(int argc, char** argv) {
         int remaining = input_size;
 
         // Calculates sendcounts and displacements for potentially uneven scattering accordingly to input data length
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             sendcounts[i] = remaining / (size - i);
             displs[i] = i > 0 ? displs[i - 1] + sendcounts[i - 1] : 0;
             remaining -= sendcounts[i];
@@ -67,7 +69,9 @@ int main(int argc, char** argv) {
     MPI_Scatterv(input_data, sendcounts, displs, MPI_INT, each_proc_buf, local_size, MPI_INT, 0, MPI_COMM_WORLD);
 
     // Calculates the number of divisors for each value from the portion received by each process
-    for (int i = 0; i < local_size; i++)
+    int i;
+    #pragma omp parallel for private(i) shared(each_proc_buf, local_size) num_threads(N_THREADS)
+    for (i = 0; i < local_size; i++)
         each_proc_buf[i] = count_divisors(each_proc_buf[i]);
 
     // Gathers all the calculated data for the master process
@@ -78,7 +82,8 @@ int main(int argc, char** argv) {
     double end = MPI_Wtime();
 
     // The master process prints and stores the gathered results
-    if (rank == MASTER) {
+    if (rank == MASTER)
+    {
         printf("Processing time: %0.3lfs\n", end - begin);
         write_file(input_data, input_size);
 

@@ -2,9 +2,11 @@
 #include "include/data_management.h"
 #include "include/divisors.h"
 
-int main(int argc, char **argv) {
+int main (int argc, char **argv)
+{
 
-    if (argc != 2) {
+    if (argc != 2)
+    {
         fprintf(stderr, "Incorrect number of arguments.\n");
         fprintf(stderr, "Usage: %s <path/to/file>\n", argv[0]);
         exit(EXIT_FAILURE);
@@ -20,9 +22,11 @@ int main(int argc, char **argv) {
     int *results = (int *) malloc (input_size * sizeof(int));
 
     // clock_t counts CPU time between all cores (threads)
+    int i;
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
-    for (int i = 0; i < input_size; i++)
+    #pragma omp parallel for private(i) shared(values, input_size, results) num_threads(N_THREADS)
+    for (i = 0; i < input_size; i++)
         results[i] = count_divisors(values[i]);
     gettimeofday(&end, NULL);
 
