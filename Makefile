@@ -1,7 +1,7 @@
 USER = $(shell whoami)
 
 all: data_management.o divisors.o
-	/home/$(USER)/openmpi/bin/mpicc -fopenmp src/parallel.c data_management.o divisors.o -lm -o hybrid -lgomp
+	/home/$(USER)/openmpi/bin/mpicc -fopenmp src/parallel.c data_management.o divisors.o -lm -o hyb -lgomp
 
 data_management.o: src/include/data_management.h
 	/home/$(USER)/openmpi/bin/mpicc -c src/data_management.c
@@ -11,7 +11,7 @@ divisors.o: src/include/divisors.h
 
 clean:
 	rm -rf *.o *.output *.out
-	rm -rf sequential profiling sh_omp sh_mpi dist_mpi hybrid saida.txt gmon.out
+	rm -rf sequential profiling sh_omp sh_mpi dist_mpi hyb saida.txt gmon.out
 
 sequential:
 	gcc -Wall src/sequential.c src/data_management.c src/divisors.c -lm -o sequential
@@ -35,7 +35,7 @@ distributed_mpi:
 	/home/$(USER)/openmpi/bin/mpirun -np 4 --hostfile hosts.txt ./dist_mpi instances/mixed_1.txt
 
 hybrid:
-	/home/$(USER)/openmpi/bin/mpirun -np 4 --hostfile hosts.txt ./hybrid instances/mixed_1.txt
+	/home/$(USER)/openmpi/bin/mpirun -np 4 --hostfile hosts.txt ./hyb instances/mixed_1.txt
 
 local_test:
 	/home/$(USER)/openmpi/bin/mpirun -np 2 ./hybrid instances/mixed_1.txt
