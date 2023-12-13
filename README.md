@@ -1,10 +1,20 @@
 [![C99](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf)
 # Identifying Primes with Parallel Computing
-Implementation of a master-slave parallel program (shared and distributed) to identify prime numbers in an array, utilizing Open MPI library (PA 1 from Parallel Computing course - DCOMP - UFSJ).
+Implementation of a hybrid master-slave parallel program (shared and distributed memory) to identify prime numbers in an array, utilizing Open MPI and OpenMP libraries (PAs 1 and 3 from Parallel Computing course - DCOMP - UFSJ).
 
 # Requirements
 
-- [GCC](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler, [Open MPI](https://www.open-mpi.org/doc/) library and [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html) tool;
+- [GCC](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler:
+
+      sudo apt install gcc
+  
+- [OpenMP](https://www.openmp.org/) library:
+
+      sudo apt install libomp-dev
+
+- [Open MPI](https://www.open-mpi.org/doc/) library;
+  
+- [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html) tool;
 
 - To install all dependencies:
 
@@ -56,17 +66,31 @@ To execute the sequential version with or without profiling, run the following r
 
       make with_prof
 
-## Shared
+## OpenMP
 
-Run the following command for executing the program in an unique multicore machine:
+- To execute the program's parallel version with shared memory and OpenMP (You may need to alter the number of threads in the source code - _divisors.h_), run the following commands:
 
-    make shared_run
+      make sh_omp
 
-## Distributed
+## Open MPI
 
-Run the following command for executing the program in multiple machines:
+### Shared
 
-    make distributed_run
+- Run the following command for executing the program in an unique multicore machine with shared memory:
+
+      make shared_run
+
+### Distributed
+
+- Run the following command for executing the program in multiple machines with distributed memory:
+
+      make distributed_run
+
+## Hybrid (OpenMP and Open MPI)
+
+- Run the following for executing the parallel program in multiple machines (Distributed memory - MPI | Shared memory - OpenMP)
+
+      make hybrid
 
 # Optional Running
 
