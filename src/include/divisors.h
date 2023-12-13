@@ -2,6 +2,7 @@
 #define __DIVISORS__
 
 #include <omp.h>
+#include <math.h>
 
 # ifdef _OPENMP
 #define N_THREADS 2

@@ -6,6 +6,7 @@ int count_divisors (int value) {
         return 1;
     else {
         int divisors = 2;
+        int square = sqrt(value);
         int limit = value / 2;
 
         int step, i;
@@ -18,13 +19,17 @@ int count_divisors (int value) {
             i = 3;
         }
 
-        int j;
-        #pragma omp parallel for private(j) shared(limit, step, value) reduction(+:divisors) num_threads(N_THREADS)
-        for (j = i; j <= limit; j += step) {
-            if (value % j == 0)
-                divisors++;
-        }
+        while (i <= limit) {
 
+            // If checked as far as square root of N, and N doesn't have a divisor greater than 1, then it must be prime
+            if (i > square && divisors == 2)
+                return 2;
+            else {
+                if (value % i == 0)
+                    divisors++;
+            }
+            i += step;
+        }
         return divisors;
     }
 }
