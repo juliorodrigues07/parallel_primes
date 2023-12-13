@@ -38,4 +38,4 @@ hybrid:
 	/home/$(USER)/openmpi/bin/mpirun -np 4 --hostfile hosts.txt ./hyb instances/mixed_1.txt
 
 local_test:
-	/home/$(USER)/openmpi/bin/mpirun -np 2 ./hybrid instances/mixed_1.txt
+	/home/$(USER)/openmpi/bin/mpirun -np 2 ./hyb instances/mixed_1.txt
