@@ -1,9 +1,10 @@
 #include "include/data_management.h"
 
-void read_file (char *file_name, int *values, int input_size) {
-
+void read_file (char *file_name, int *values, int input_size)
+{
     FILE* input_file = fopen(file_name, "r");
-    if (input_file == NULL) {
+    if (input_file == NULL)
+    {
         perror("Failed opening file!\n");
         exit(EXIT_FAILURE);
     }
@@ -14,12 +15,13 @@ void read_file (char *file_name, int *values, int input_size) {
     fclose(input_file);
 }
 
-void write_file (int *results, int output_size) {
-
+void write_file (int *results, int output_size)
+{
     const char *file_name = "saida.txt";
     FILE* output_file = fopen(file_name, "w");
 
-    if (output_file == NULL) {
+    if (output_file == NULL)
+    {
         perror("An error occur creating the output file.\n");
         exit(EXIT_FAILURE);
     }
@@ -29,12 +31,13 @@ void write_file (int *results, int output_size) {
     fclose(output_file);
 }
 
-void save_execution_stats (double time) {
-
+void save_execution_stats (double time)
+{
     const char *file_name = "time.txt";
     FILE* output_file = fopen(file_name, "w");
 
-    if (output_file == NULL) {
+    if (output_file == NULL)
+    {
         perror("An error occur creating the output file.\n");
         exit(EXIT_FAILURE);
     }
@@ -44,8 +47,8 @@ void save_execution_stats (double time) {
 }
 
 
-int get_input_size (char *file_name) {
-
+int get_input_size (char *file_name)
+{
     int input_size;
     int length = (int) strlen(file_name);
 

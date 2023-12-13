@@ -25,9 +25,11 @@ int main (int argc, char **argv)
     int i;
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
+
     #pragma omp parallel for private(i) shared(values, input_size, results) num_threads(N_THREADS)
     for (i = 0; i < input_size; i++)
         results[i] = count_divisors(values[i]);
+
     gettimeofday(&end, NULL);
 
     double total_time = (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec) / 1000000.0;
