@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt install build-essential
+sudo apt install libomp-dev
 cd /
 cd tmp
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz
