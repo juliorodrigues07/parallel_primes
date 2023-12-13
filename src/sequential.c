@@ -1,4 +1,4 @@
-#include <time.h>
+#include <sys/time.h>
 #include "include/data_management.h"
 #include "include/divisors.h"
 
@@ -19,13 +19,17 @@ int main(int argc, char **argv) {
     // Could also store the results overwriting the input array
     int *results = (int *) malloc (input_size * sizeof(int));
 
-    clock_t begin = clock();
+    // clock_t counts CPU time between all cores (threads)
+    struct timeval begin, end;
+    gettimeofday(&begin, NULL);
     for (int i = 0; i < input_size; i++)
         results[i] = count_divisors(values[i]);
-    clock_t end = clock();
+    gettimeofday(&end, NULL);
+
+    double total_time = (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec) / 1000000.0;
 
     write_file(results, input_size);
-    printf("Processing time: %0.3lfs\n", (double) (end - begin) / CLOCKS_PER_SEC);
+    printf("Processing time: %0.3lfs\n", total_time);
 
     free(results);
     free(values);
