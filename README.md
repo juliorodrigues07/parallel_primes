@@ -1,6 +1,6 @@
 [![C99](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf)
 # Identifying Primes with Parallel Computing
-Implementation of a hybrid master-slave parallel program (shared and distributed memory) to identify prime numbers in an array, utilizing Open MPI and OpenMP libraries (PAs 1 and 3 from Parallel Computing course - DCOMP - UFSJ).
+Implementation of a master-slave hybrid parallel program (shared and distributed memory) to identify prime numbers in an array, utilizing Open MPI and OpenMP libraries (PAs 1 and 3 from Parallel Computing course - DCOMP - UFSJ).
 
 # Requirements
 
@@ -88,7 +88,7 @@ To execute the sequential version with or without profiling, run the following r
 
 ## Hybrid (OpenMP and Open MPI)
 
-- Run the following for executing the parallel program in multiple machines (Distributed memory - MPI | Shared memory - OpenMP)
+- Run the following for executing the parallel program in multiple machines (Distributed memory - MPI | Shared memory - OpenMP):
 
       make hybrid
 
@@ -104,6 +104,10 @@ Inside _instances_ directory, you can generate your own instances by executing t
 
 ## Time graphics
 
-Inside _plotting_ directory, you can generate the time graphics present in this works report by running the following commmand:
+Inside _plotting_ directory, you can generate the time graphics presented in this works report by running the following commmand:
 
     python3 times.py
+
+Also, you can generate the graphics that compares execution time between the two libraries (OpenMP and Open MPI) with shared and distributed memory, just by running the following commmand:
+
+    python3 benchmark.py
