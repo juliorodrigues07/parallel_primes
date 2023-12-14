@@ -287,7 +287,7 @@ Como principal limitação, é possível citar o descumprimento parcial do model
     \label{fig:map7}
 \end{figure}
 
-\footnotetext[8]{\scriptsize{Disponível em: \url{https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/mpi.2pp.pdf}}}
+\footnotetext[9]{\scriptsize{Disponível em: \url{https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/mpi.2pp.pdf}}}
 
 Para contornar tal obstáculo, é possível criar um comunicador restrito aos processos escravos, para que então possa ser realizada a operação de \emph{Scatter} com o primeiro processo escravo como raiz (\(rank = 1\)), distribuindo os dados somente entre os processos escravos. Posteriormente o agrupamento dos dados seria realizado no comunicador global, para que então o processo mestre possa armazenar o resultado em um arquivo de saída.
 
